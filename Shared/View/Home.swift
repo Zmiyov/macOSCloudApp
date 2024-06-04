@@ -10,19 +10,21 @@ import SwiftUI
 struct Home: View {
     
     @State var currentTab = "Home"
+    @State var showMenu = false
     
     var body: some View {
         HStack {
             
-            //Side menu
-            SideMenu(currentTab: $currentTab)
-            
-            //Main content
-            MainContent()
+            AdaptableStack(showMenu: $showMenu) {
+                MainContent(showMenu: $showMenu)
+            } menuView: {
+                SideMenu(currentTab: $currentTab)
+            } sideView: {
+                SideView() 
+            }
+
         }
-        .frame(width: getRect().width / 1.3, height: getRect().height - 100, alignment: .leading)
-        .background(Color.white.ignoresSafeArea())
-        .buttonStyle(PlainButtonStyle())
+
     }
 }
 
@@ -39,6 +41,14 @@ extension View {
         return NSScreen.main!.visibleFrame
         #else
         return UIScreen.main.bounds
+        #endif
+    }
+    
+    func isMacOS() -> Bool {
+        #if os(iOS)
+        return false
+        #else
+        return true
         #endif
     }
 }

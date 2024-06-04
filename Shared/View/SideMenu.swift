@@ -66,11 +66,9 @@ struct SideMenu: View {
             .offset(x: 15)
             .padding(.top, 20)
         }
-        //max width
-        .frame(width: 210)
         //to avoid spacers
         .frame(maxHeight: .infinity, alignment: .top)
-        .background(Color("gray").ignoresSafeArea())
+
     }
 }
 
